@@ -1,6 +1,6 @@
-var disqus_shortname = 'hooloodemo';
-var hostbase = 'http://hooloo.github.io';
-var githubname = 'hooloo';
-var repos = 'hooloo.github.io';
-var sitetitle = 'Hooloo';
+var disqus_shortname = 'oranzhang';
+var hostbase = 'http://oran.pw';
+var githubname = 'oranzhang';
+var repos = 'Hooloo';
+var sitetitle = 'Oran Zhang';
 var rss = '';
