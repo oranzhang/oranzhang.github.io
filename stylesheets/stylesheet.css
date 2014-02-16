@@ -64,7 +64,7 @@ body {
   font-size: 15px;
   line-height: 1.5; 
   background: white;
-  font-family: Arial, serif;
+  font-family: "LCD", Arial, serif;
   font-weight: 400;
   color: #666;
 }
@@ -108,7 +108,7 @@ header h2 {
 postlist {
   font-size: 20px;
   display: block;
-  font-family: Arial, sans-serif;
+  font-family: "LCD" ,Arial, sans-serif;
   padding: 10px;
   padding-left: 20px;
   border-bottom: 1px #e2e2e2 solid;
@@ -258,12 +258,13 @@ header span.searchbar {
   line-height: 20px;
   width: 240px;
   font-size: 16px;
-  padding: 0 4px 0 20px;
+  padding: 0 4px 0 25px;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
   background: url(../images/search-icon.png) no-repeat left center white;
   border: 2px solid black;
+  font-family: "pixel-g";
 }
 #searchbar:active {
   border: 5px solid black;
@@ -683,18 +684,19 @@ footer a:hover {
 
 .disqus_count a {
   display: block;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  height: 16px;
+  font-family: "pixel-g";
+  /* -webkit-border-radius: 8px; */
+  /* -moz-border-radius: 8px; */
+  /* border-radius: 8px; */
+  height: 18px;
   line-height: 16px;
   font-size: 12px;
   min-width: 10px;
   padding: 0 5px;
   text-align: center;
-  color: white;
-  background: gray;
-  border: none;
+  color: rgb(3, 3, 3);
+  /* background: rgb(255, 255, 255); */
+  border: 2px solid black;
 }
 
 .disqus_count a:hover {
