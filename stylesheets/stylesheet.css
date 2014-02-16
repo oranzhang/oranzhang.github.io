@@ -63,7 +63,7 @@ table {
 body {
   font-size: 15px;
   line-height: 1.5; 
-  background: #eee;
+  background: white;
   font-family: Arial, serif;
   font-weight: 400;
   color: #666;
@@ -77,13 +77,12 @@ a:hover {
 }
 
 header {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  font-family: "3D", Arial, serif; 
-  background: #2e7bcf;
-  border-bottom: solid 1px #275da1;
-  position: relative;
-  overflow: hidden;
+  background: white;
+  letter-spacing: -1px;
+  font-size: 72px;
+  line-height: 1;
+  margin-bottom: 0.2em;
+  width: 540px;
 }
 
 header h1 {
@@ -109,7 +108,7 @@ postlist {
   display: block;
   font-family: Arial, sans-serif;
   padding: 10px;
-  background: url(../images/bg_item.png) bottom;
+  padding-left: 20px;
   border-bottom: 1px #e2e2e2 solid;
 }
 
@@ -162,6 +161,7 @@ postlist a:hover {
   -webkit-box-shadow: 1px 2px 3px #ddd;
   box-shadow: 1px 2px 3px #ddd;
   background: white;
+  margin-bottom: 30px;
 }
 
 #main-content img {
@@ -210,6 +210,7 @@ aside#sidebar p.repo-owner a {
 
 aside#sidebar img {
   margin-bottom: 20px;
+  float: right;
 }
 
 #downloads {
