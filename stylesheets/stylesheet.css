@@ -154,80 +154,9 @@ postlist a:hover {
   font-family: "LCD", sans-serif !important;
   padding: 20px;
 }
-#dsq-comments-title h4 {
+script+#layout {
+    font-family: "LCD", sans-serif !important;
 
-color:#333;
-}
-#disqus_thread {
-  font-family: "LCD", sans-serif !important;
-padding:12px;
-margin-bottom:-10px;
-}
-#disqus_thread h4 {
-
-color:#333;
-font-family: "LCD", sans-serif !important;font-size:12px;
-padding-bottom:.5em;
-}
-#dsq-content div.dsq-options {
-font-family: "LCD", sans-serif !important;
-background:none;
-padding-bottom:10px;
-}
-#dsq-comments li.dsq-comment {
-  font-family: "LCD", sans-serif !important;
-margin-top:12px
-margin-bottom:10px;
-padding:5px;
-background:#FFFFFF;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-border:0px solid #ccc;
-}
-#dsq-content div.dsq-post-area {
-  font-family: "LCD", sans-serif !important;
-padding:5px;
-background:#F0F0E9;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-border:1px solid #ccc;
--webkit-box-shadow: 0px 0px 10px #FFFFFF;
--moz-box-shadow: 0px 0px 10px #ECF40B;
-}
-#dsq-content .dsq-comment-header {
-  font-family: "LCD", sans-serif !important;
-background:#F5F5F5;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-border: 1px solid #ccc;
-}
-.dsq-brlink {
-display:none;
-font-family: "LCD", sans-serif !important;
-}
-#dsq-content .dsq-comment-message {
-  font-family: "LCD", sans-serif !important;
-background:#EDEDED;
-padding:5px;
-margin-left: 15px;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-}
-#dsq-content #dsq-authenticate .dsq-login-buttons {
-background:none;
-background-image:none;
-margin-bottom:0;
-font-family: "LCD", sans-serif !important;
-}
-#dsq-content #dsq-form-area .dsq-textarea .dsq-textarea-wrapper,
-#dsq-content #dsq-form-area .dsq-post-fields .dsq-input-wrapper {
-border: 1px solid #ccc;
-font-family: "LCD", sans-serif !important;
-}
-#dsq-new-post div.dsq-request-user-info {
-background:none;
-padding-bottom:0px;
-font-family: "LCD", sans-serif !important;
 }
 #main-content {
   min-height: 50px;
