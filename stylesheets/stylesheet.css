@@ -2,6 +2,19 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@font-face {
+    font-family: "LCD";
+    src: url('../images/LCD_Solid.ttf') format("truetype");
+}
+@font-face{
+    font-family: "pixel-g";
+    src:url('../images/Pixel_Gosub.otf') format("truetype");
+}
+@font-face{
+    font-family: "3D";
+    src:url('../images/3D.ttf');
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -66,7 +79,7 @@ a:hover {
 header {
   padding-top: 40px;
   padding-bottom: 40px;
-  font-family: Arial, serif; 
+  font-family: "3D", Arial, serif; 
   background: #2e7bcf;
   border-bottom: solid 1px #275da1;
   position: relative;
@@ -141,9 +154,7 @@ postlist a:hover {
 }
 
 #main-content {
-  width: 690px;
   min-height: 50px;
-  float: left;
   position: relative;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -180,9 +191,7 @@ postlist a:hover {
 }
 
 aside#sidebar {
-  width: 200px;
   padding: 20px;
-  float: right;
   position: relative;
   background: white;
   font-size: 12px;
