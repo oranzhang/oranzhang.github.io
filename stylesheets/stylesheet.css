@@ -151,6 +151,7 @@ postlist a:hover {
 }
 
 #disqus_thread {
+  font-family: "LCD", sans-serif !important;
   padding: 20px;
 }
 
@@ -536,7 +537,7 @@ form {
 }
 
 #main-content h2 {
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
+  font-family: 'pixel-g', Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 8px;
@@ -544,7 +545,7 @@ form {
 } 
 #main-content h2:before {
   content: "//";
-  color: #9ddcff;
+  color: #aaa;
   padding-right: 0.3em;
   margin-left: -1.5em;
 }
