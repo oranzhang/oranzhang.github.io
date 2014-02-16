@@ -28,35 +28,35 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
 ol, ul {
-	list-style: none;
+  list-style: none;
 }
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 /* LAYOUT STYLES */
@@ -77,21 +77,23 @@ a:hover {
 }
 
 header {
-  background: white;
-  letter-spacing: -1px;
-  font-size: 72px;
-  line-height: 1;
-  margin-bottom: 0.2em;
-  width: 540px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  font-family: "3D",Arial, serif; 
+  background: #FFF;
+  border-bottom: solid 1px black;
+  position: relative;
+  overflow: hidden;
 }
 
 header h1 {
   letter-spacing: -1px;
   font-size: 72px;
-  color: #fff;
+  color: black;
   line-height: 1;
   margin-bottom: 0.2em;
   width: 540px;
+  background: #FFF;
 }
 
 header h2 {
