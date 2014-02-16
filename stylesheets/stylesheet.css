@@ -68,7 +68,9 @@ body {
   font-weight: 400;
   color: #666;
 }
-
+em {
+  color: rgb(2, 105, 129);
+}
 a {
   color: #2879d0;
 }
