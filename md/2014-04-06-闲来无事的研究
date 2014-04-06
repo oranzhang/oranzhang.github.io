@@ -1,0 +1,111 @@
+
+> 本文中的代码均使用Ruby编写，为了保证思路清晰，不使用高级语法。
+
+#起因
+
+最近~~闲来无事~~凭着一颗毫无数学和密码学知识储备的大脑不知为何无聊起来想搞一个~~没用的~~加密算法，于是，经过~~无数个~~语文课的折腾和推倒和再次折腾，搞出了大概这样一个算法来加密字符串。
+
+
+```
+class OCpt
+	def self.go str
+		sta = []
+		str.codepoints.to_a.each {|i| sta << [i/2, i]}
+		str = sta.reverse.join
+		@i = 0
+		@l = str.length
+		a = []
+		b = []
+		until @i >= @l do
+			a << str[@i..@i+2]
+			@i = @i+3
+		end
+		a.each do |xx|
+			b << [xx.hex].pack("U")
+		end
+		b.join
+	end
+end
+```
+于是我~~手贱~~试了下这段代码：
+
+```
+say = Ocpt.go gets
+puts say
+p say.inspect
+```
+```
+orans-Mac-Pro:Desktop oranzhang$ ruby untitled.rb
+Hello World!
+Ԑţ͐ĀՁܑѕđиܖ̥ԑŔĈՁĶr
+"\"Ԑţ͐ĀՁܑѕđиܖ̥ԑŔĈՁ\\u0010Ķr\""
+orans-Mac-Pro:Desktop oranzhang$ ruby untitled.rb
+你好，天朝！
+Ԑ̦ІԨēƘɣॱŁȢ̦ࠥѦԩȑєȩ ̠
+"\"Ԑ̦І\\u0528ēƘɣॱŁȢ̦ࠥѦ\\u0529ȑєȩ\\u0091\\u0016 ̠\""
+orans-Mac-Pro:Desktop oranzhang$ ruby untitled.rb
+Bonjour, le monde!
+Ԑţ͐āԁԑUđՁزԁА̢ࠖɄձŅࠑݕđԱeԑUđ̶
+"\"Ԑţ͐āԁ\\u0005ԑUđՁ\\u0091زԁ\\u0015А̢ࠖɄձŅࠑݕđԱeԑUđ̶\\u0006\""
+```
+目测效果不错，于是就发到了某个群，群里的某个人就开始捯饬这这个算法的逆算法：
+
+```
+def decode str
+    middle = str.chars.map do |c|
+        sprintf("%3s", c.unpack('U').first.to_s(16)).gsub(/ /, '0')
+    end.join
+    
+    p "# middle is #{middle}"
+    
+    copy = String.new middle
+    ret_arr = []
+    time = 0
+    until copy.length == 0 do
+        (4..10).each do |i|
+            first = copy[0..(i / 2) - 1]
+            second = copy[(i / 2)..i-1]
+            p "## first = #{first} second = #{second} " 
+            if (second.to_i / 2) == first.to_i
+                p "### : get #{second}"
+                copy = copy[i..-1]
+                ret_arr << second.to_i
+                break
+            end
+        end
+        return if (time+=1) > 100
+    end
+    ret_arr.reverse.map{|a| a.chr}.join
+end
+```
+
+于是就发现了这个算法的一些问题：
+
+* 在**算法层面**可以通过穷举破解
+* 不能加密除字符串以外的东西（当然如果你不介意把binary code强制当UTF-8 String来读取的话）
+* 编码之后的内容不能被~~人类~~读取
+* 编码之后的内容过长
+
+#试着去解决问题
+对于穷举的问题，我们可以在`str.codepoints.to_a.each {|i| sta << [i/2, i]}`与
+
+```
+		until @i >= @l do
+			a << str[@i..@i+2]
+			@i = @i+3
+		end
+```
+中找到答案，在我的设想中，解决方法是这样的：
+
+1. 引入向量，将向量的模相加或相乘而非codepoints转为字符串直接相加，若相加，即可一并可以解决过长的问题，而相乘则可以无限地将密文延伸增加破解的难度；
+2. `[i/2, i]`中的两个数字改为此字符codepoint因式分解后取相差最小的一组的结果，这样做，坐标（一个字符代表平面直角坐标系中的一个点）无定向，给破解增加了难度。
+
+#问题像是解决了，于是……
+在此，我学会了：
+
+1. 增加密文的长度可以加大破解难度；
+2. 通过数学的可变可以实现逆运算的不可辨。
+
+这个算法中，还有些许小问题，比如每隔三个数字取一个字符串是否方便于使用等等，当然，无伤大雅，我也就不再赘述了。我只是闲的蛋疼没事写写，若是对您有任何帮助，我便是三生有幸。
+
+问题解决后的代码稍后奉上。
