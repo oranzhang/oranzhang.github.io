@@ -6,7 +6,7 @@
 最近~~闲来无事~~凭着一颗毫无数学和密码学知识储备的大脑不知为何无聊起来想搞一个~~没用的~~加密算法，于是，经过~~无数个~~语文课的折腾和推倒和再次折腾，搞出了大概这样一个算法来加密字符串。
 
 
-```
+```ruby
 class OCpt
 	def self.go str
 		sta = []
@@ -27,14 +27,16 @@ class OCpt
 	end
 end
 ```
+
 于是我~~手贱~~试了下这段代码：
 
-```
+```ruby
 say = Ocpt.go gets
 puts say
 p say.inspect
 ```
-```
+
+```ruby
 orans-Mac-Pro:Desktop oranzhang$ ruby untitled.rb
 Hello World!
 Ԑţ͐ĀՁܑѕđиܖ̥ԑŔĈՁĶr
@@ -48,9 +50,10 @@ Bonjour, le monde!
 Ԑţ͐āԁԑUđՁزԁА̢ࠖɄձŅࠑݕđԱeԑUđ̶
 "\"Ԑţ͐āԁ\\u0005ԑUđՁ\\u0091زԁ\\u0015А̢ࠖɄձŅࠑݕđԱeԑUđ̶\\u0006\""
 ```
+
 目测效果不错，于是就发到了某个群，群里的某个人就开始捯饬这这个算法的逆算法：
 
-```
+```ruby
 def decode str
     middle = str.chars.map do |c|
         sprintf("%3s", c.unpack('U').first.to_s(16)).gsub(/ /, '0')
@@ -89,12 +92,13 @@ end
 #试着去解决问题
 对于穷举的问题，我们可以在`str.codepoints.to_a.each {|i| sta << [i/2, i]}`与
 
-```
+```ruby
 		until @i >= @l do
 			a << str[@i..@i+2]
 			@i = @i+3
 		end
 ```
+
 中找到答案，在我的设想中，解决方法是这样的：
 
 1. 引入向量，将向量的模相加或相乘而非codepoints转为字符串直接相加，若相加，即可一并可以解决过长的问题，而相乘则可以无限地将密文延伸增加破解的难度；
