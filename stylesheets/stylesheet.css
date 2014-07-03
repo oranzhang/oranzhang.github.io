@@ -68,7 +68,7 @@ body {
   font-size: 15px;
   line-height: 1.5; 
   background: white;
-  font-family: "miao", "LCD", Arial, serif !important;
+  font-family:  "LCD", Arial,"miao", serif !important;
   font-weight: 400;
   color: #666;
 }
@@ -85,7 +85,7 @@ a:hover {
 header {
   padding-top: 40px;
   padding-bottom: 40px;
-  font-family: "miao","3D",Arial, serif; 
+  font-family: "3D","miao",Arial, serif; 
   background: #FFF;
   border-bottom: solid 0 black;
   position: relative;
@@ -114,7 +114,7 @@ header h2 {
 postlist {
   font-size: 20px;
   display: block;
-  font-family: "miao","LCD" ,Arial, sans-serif;
+  font-family: "LCD" ,"miao",Arial, sans-serif;
   padding: 10px;
   padding-left: 20px;
   border-bottom: 1px #e2e2e2 solid;
@@ -157,11 +157,11 @@ postlist a:hover {
 }
 
 #disqus_thread {
-  font-family: "miao","LCD", sans-serif !important;
+  font-family: "LCD", "miao",sans-serif !important;
   padding: 20px;
 }
 script+#layout {
-    font-family: "miao","LCD", sans-serif !important;
+    font-family: "LCD","miao", sans-serif !important;
 
 }
 #main-content {
@@ -240,7 +240,7 @@ a.button {
   color: #fff;
   padding-left: 68px;
   padding-top: 22px;
-  font-family: "miao",'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
 }
 a.button small {
   display: block;
@@ -274,7 +274,7 @@ header span.searchbar {
   border-radius: 0px;
   background: url(../images/search-icon.png) no-repeat left center white;
   border: 2px solid black;
-  font-family: "miao","pixel-g";
+  font-family: "pixel-g","miao";
 }
 #searchbar:active {
   border: 5px solid black;
@@ -688,7 +688,7 @@ footer a:hover {
 
 .disqus_count a {
   display: block;
-  font-family: "miao","pixel-g";
+  font-family: "pixel-g","miao";
   /* -webkit-border-radius: 8px; */
   /* -moz-border-radius: 8px; */
   /* border-radius: 8px; */
