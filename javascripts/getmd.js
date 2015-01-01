@@ -105,7 +105,7 @@ function loadXMLDoc(url){
 						encoded = true;
 					};
 					var converter = new Showdown.converter();
-					content.innerHTML = '<div style="padding: 20px 20px 20px 40px;"><div id="back_home"><a href="/" onclick="home();return false;">'+sitetitle+'</a><span>&nbsp;›&nbsp;</span></div><div id="post_title">' + decodeUtf8(path.substr(1).split('/')[path.substr(1).split('/').length-1].replace(/_/g, ' ')) + (encoded?Base64.decode('PHN1cCBzdHlsZT0iZm9udC1zaXplOjAuNWVtO3ZlcnRpY2FsLWFsaWduOiBzdXBlcjsiIHRpdGxlPSLmraTmlofnq6Dlt7Looqvph43mlrDnvJbnoIHku6XourLpgb/lrqHmn6UiPuKYmuiiq+e8lueggeeahOWGheWuuTwvc3VwPg=='):'') + '</div>' + converter.makeHtml(blog_text) + '<div class="date">Posted at ' + pdate + '</div></div>';
+					content.innerHTML = '<div class="o-page-title"><p>'+ decodeUtf8(path.substr(1).split('/')[path.substr(1).split('/').length-1].replace(/_/g, ' ')) + (encoded?Base64.decode('PHN1cCBzdHlsZT0iZm9udC1zaXplOjAuNWVtO3ZlcnRpY2FsLWFsaWduOiBzdXBlcjsiIHRpdGxlPSLmraTmlofnq6Dlt7Looqvph43mlrDnvJbnoIHku6XourLpgb/lrqHmn6UiPuKYmuiiq+e8lueggeeahOWGheWuuTwvc3VwPg=='):'') + '</p></div><div class="o-page-view">' +  converter.makeHtml(blog_text) + '<div class="date">Posted at ' + pdate + '</div>';
 					if(dis){
 						dis.style.display = 'block';
 					}
@@ -154,21 +154,23 @@ function showlist(list){
 	document.getElementById('takinglonger').style.display = 'none';
 	postList = list;
 	var txt = '';
+	txt += '<div class="o-page-title"><p>Articles</p></div><div class="o-page-list"><ul>'
 	if(page*20-20>=list.data.length && page!=1){
 		page = Math.ceil(list.data.length/20);
 		window.history.replaceState(null, '', '/#!/page/'+page);
 	}
 	for(var i = list.data.length-(page-1)*20; i > 0 && i > list.data.length-page*20; i--){
-		txt += '<postlist><a href="/#!/' + list.data[i-1].name.replace(/-/g, '/') + '">' + list.data[i-1].name.split('-')[list.data[i-1].name.split('-').length-1].replace(/_/g, ' ') + '</a><div class="post_info"><span class="post_date">Posted at '+list.data[i-1].name.split('-')[0]+'-'+list.data[i-1].name.split('-')[1]+'-'+list.data[i-1].name.split('-')[2]+'</span><span class="disqus_count"><a href="' + hostbase + '/' + encodePath(list.data[i-1].name) + (commentscount[i]?'':'#disqus_thread') + '" name="commentscount" id="post-'+i+'">'+(commentscount[i]?commentscount[i]:'')+'</a></span></div></postlist>';
+txt += '<li><h1><a href="/#!/' + list.data[i-1].name.replace(/-/g, '/') + '">'+ list.data[i-1].name.split('-')[list.data[i-1].name.split('-').length-1].replace(/_/g, ' ') + '</a></h1><div class="post_info"><p>Posted at '+list.data[i-1].name.split('-')[0]+'-'+list.data[i-1].name.split('-')[1]+'-'+list.data[i-1].name.split('-')[2]+' et ' +  '<a style="margin-left: .5rem" href="' + hostbase + '/' + encodePath(list.data[i-1].name) + (commentscount[i]?'':'#disqus_thread') + '" name="commentscount" id="post-'+i+'">'+(commentscount[i]?commentscount[i]:'')+'</a>' + '</p></li>';
+
 	}
 	if(page==1 && page*20<list.data.length){
-		txt += '<postlist><a class="prev_page" href="/#!/page/'+(page+1)+'">←Older Posts</a><div style="clear:both"></div></postlist>';
+		txt += '<div class="am-cf"><a class="am-btn am-btn-warning am-fl prev_page" href="/#!/page/'+(page+1)+'"">←Older Posts</a><a class="am-btn am-btn-warning am-fr am-disabled">Newer Posts→</a></div>';
 	}
 	else if(page>1 && page*20>=list.data.length){
-		txt += '<postlist><a class="next_page" href="/#!/page/'+(page-1)+'">Newer Posts→</a><div style="clear:both"></div></postlist>';
+    txt += '<div class="am-cf"><a class="am-btn am-btn-warning am-fl am-disabled prev_page" href="/#!/page/'+(page+1)+'"">←Older Posts</a><a href="/#!/page/'+(page-1)+'" class="am-btn am-btn-warning am-fr next_page">Newer Posts→</a></div>';
 	}
 	else if(page>1 && page*20<list.data.length){
-		txt += '<postlist><a class="prev_page" href="/#!/page/'+(page+1)+'">←Older Posts</a><a class="next_page" href="/#!/page/'+(page-1)+'">Newer Posts→</a><div style="clear:both"></div></postlist>';
+    txt += '<div class="am-cf"><a class="am-btn am-btn-warning am-fl prev_page" href="/#!/page/'+(page+1)+'"">←Older Posts</a><a href="/#!/page/'+(page-1)+'" class="am-btn am-btn-warning am-fr next_page">Newer Posts→</a></div>';
 	}
 	loading.style.display = 'none';
 	content.innerHTML = txt;

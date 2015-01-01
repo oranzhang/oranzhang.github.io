@@ -1,84 +1,104 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta content="I write code." name="description">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
-    <link rel="stylesheet" type="text/css" href="/stylesheets/loading.css" />
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Oran Zhang</title>
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  <!-- Set render engine for 360 browser -->
+  <meta name="renderer" content="webkit">
 
-    <script src="/javascripts/config.js"></script>
-    <script src="/javascripts/base64.js"></script>
-    <script src="/javascripts/showdown.js"></script>
-    <!-- Change this to your site title -->
-    <title>Oran Zhang</title>
-  </head>
+  <!-- No Baidu Siteapp-->
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
-  <body>
-    <header>
-      <canvas id="gameoflife"></canvas>
-      <div class="inner">
-        <!-- Change this to your site title -->
-        <a href="/" onclick = "return false"><h1 onclick="home()">Oran Zhang</h1></a>
-        <span class="searchbar">
-        <input type="text" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
-        </span>
-      </div>
-    </header>
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <div class="gotop" onclick="goToTop()">
-            <div class="gotopinner">
-              <div class="topleft"></div>
-              <div class="topright"></div>
-              <div class="topbody"></div>
-            </div>
-          </div>
-          <div id="loading">
-            <div class="loading" index="0"></div>
-            <div class="loading" index="1"></div>
-            <div class="loading" index="2"></div>
-            <div class="loading" index="3"></div>
-            <div class="loading" index="4"></div>
-          </div>
-          <a href="/" onclick="return false">
-            <div id="backhome" onclick="home()">
-              <div class="backhome">
-                <div class="backhomeinner">
-                  <div class="backleft"></div>
-                  <div class="backright"></div>
-                  <div class="backbody"></div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <div id="content">
-          </div>
-          <div id="takinglonger"><blockquote>This is taking longer than normal, and there may be some problems in your network.</blockquote></div>
-          <div id="disqus_thread" style="display:none"></div>
-        </section>
-      </div>
-      <footer>This blog is based on <a href="https://github.com/sneezry/Hooloo">Hooloo</a> modified by <a href="http://oran.pw/">Oran Zhang</a><br>
-        Designed by Oran Zhang 
-        Friends(排名不分先后): <a href="http://www.yangtengfei.com/">飞飞</a> <a href="http://hegwin.me/">蓝蓝</a> <a href="http://www.ricter.info/">Ricter</a> <a href="http://www.faceair.net/">faceair</a> <a href="http://jysperm.me/">精子</a> <a href="http://whouz.com/">天天</a> <a href="http://ipotato.me/">豆豆</a> <a href="http://www.weirm.info/">万致远</a>
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
 
-        <br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;" src="/images/cc_by-nc-sa.png" /></a><br>Oran's: <a href="https://github.com/oranzhang/">Github</a> <a href="http://twitter.com/oranzhang">Twitter</a>
-</footer>
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+
+  <link rel="stylesheet" href="assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <script src="/javascripts/config.js"></script>
+  <script src="/javascripts/base64.js"></script>
+  <script src="/javascripts/showdown.js"></script>
+</head>
+<body>
+  
+<div class="am-g o-title">
+  <div class="o-logo">
+    <div class="o-logo-text"><a href="/">Oran <span class="am-icon-star"></span> Zhang</a></div>
+    <div class="am-u-sm-5 am-u-sm-centered">
+      <ul class="am-avg-sm-3 o-logo-navi">
+        <li>
+          <a href="/" onclick = "return false"><span onclick="home()">Blog</span></a>
+          <!--<span class="searchbar">
+          <input type="text" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
+        </span>-->
+        </li>
+        <li>
+          <a href="javascript:alert('Time limited! 此坑待填。');">Works</a>
+        </li>
+        <li>
+          <a href="javascript:alert('Time limited! 此坑待填。');">About</a>
+        </li>
+      </ul>
     </div>
-  <script src="/javascripts/search.js"></script>
-  <script src="/javascripts/getmd.js"></script>
-  <!--
-  <script src="/javascripts/main.js"></script>
-  -->
-  <script src="/javascripts/gameoflife.js"></script>
-  </body>
+  </div>
+</div>
+<div class="am-container o-main">
+  <div class="gotop" onclick="goToTop()">
+    <div class="gotopinner">
+      <div class="topleft"></div>
+      <div class="topright"></div>
+      <div class="topbody"></div>
+    </div>
+  </div>
+  <div id="loading">
+    <div class="o-page-title">
+      <p><span class="am-icon-star am-icon-spin"></span> Loading</p>
+    </div>
+    <div class="o-page-view">
+    </div>
+  </div>
+  <a href="/" onclick="return false">
+    <div id="backhome" onclick="home()">
+      <div class="backhome">
+        <div class="backhomeinner">
+          <div class="backleft"></div>
+          <div class="backright"></div>
+          <div class="backbody"></div>
+        </div>
+      </div>
+    </div>
+  </a>
+  <div id="content">
+  </div>
+  <div id="takinglonger"><blockquote>This is taking longer than normal, and there may be some problems in your network.</blockquote></div>
+  <div id="disqus_thread" style="display:none;padding: 3rem;"></div>
+
+</div>
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="/javascripts/search.js"></script>
+<script src="/javascripts/getmd.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<![endif]-->
+</body>
 </html>
