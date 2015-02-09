@@ -1,0 +1,174 @@
+本文将说明VSQ3(即Vocaloid 3 所用`vsqx`)的格式以及各个节点的作用.
+
+##基本结构
+用文本编辑器打开一个VSQX工程，可以看出这是一个的XML，根节点`vsq3`的命名空间指向`"http://www.yamaha.co.jp/vocaloid/schema/vsq3/"`. 
+
+
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <vsq3 xmlns="http://www.yamaha.co.jp/vocaloid/schema/vsq3/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.yamaha.co.jp/vocaloid/schema/vsq3/ vsq3.xsd">
+   		<vender>...</vender>
+        <version>...</version>
+    	<vVoiceTable>...</vVoiceTable>
+    	<mixer>...</mixer>
+    	<masterTrack>...</masterTrack>
+    	<vsTrack>...</vsTrack>
+    	<vsTrack>...</vsTrack>
+    	<vsTrack>...</vsTrack>
+    	<vsTrack>...</vsTrack>
+    	<seTrack></seTrack>
+    	<karaokeTrack></karaokeTrack>
+    	<aux>...</aux>
+    </vsq3>
+
+可以看出，`vsq3`节点下还有`vender`, `version`, `vVoiceTable`, `mixer`, `masterTrack`, `vsTrack`, `karaokeTrack`, `aux` 等节点. 
+
+##Vocaloid元信息`vender` & `version`
+ - `vender`内是一个CDATA，值为Vocaloid软件贩售商(即YAMAHA)，即`Yamaha corporation`
+ - `version`内的CDATA定义创建这个工程文件的Vocaloid Editor版本, e.g. `3.0.0.11`
+ 
+##歌手元信息`vVoiceTable`
+该节点有若干个名为`vVoice`的子节点，`vVoice`的子节点以及功能如下.
+
+###源歌手标识 `vBS`, `vPC`, `compID`
+1. `vBS`官方定义为"バーチャルバンクセレクト"，解释为“语言ID”，发现`Luka_ENG(V2)`音源的此处值为1，而日语音源此处值为0, 汉语普通话则为4，在官方文档被发现前，有人推出BS应为“Bank Select”之缩写. 取值范围0-127(Int). 
+2. `vPC`即“音色改变”，遵守SMF规范选择0-127号MIDI音色，在Vocaloid中应该是指命名空间(即改Vocaloid Editor工程)内的虚拟歌手的编号. 取值范围0-127(Int). 
+3. `compID`者，"Component ID"也. 音源的唯一标识码，由16位ASCII字符组成. e.g. `BHHN4EF9BRWTNHAB`代表Miku(V2)音源. 
+
+###用户自定义歌手数据 `vVoiceName`, `vVoiceParam`
+1. `vVoiceName`为用户设定的自定义歌手名字. 
+2. `vVoiceParam`为用户设定的自定义歌手音色参数，子节点`bre`, `bri`, `cle`, `gen`, `ope`分别指"呼吸音"，"明亮度"，"清晰度"，"性别因子"和"口的开合程度". 
+ 
+##音轨音频相关`vsTrack`, `seTrack`, `masterTrack`, `karaokeTrack`
+###masterTrack
+`masterTrack`为主控制输出轨道，下设子节点`seqName`, `comment`, `resolution`, `preMeasure`, `timeSig`, `tempo`. 
+
+  1. `seqName`, `comment`对应MIDI序列名和注释. 
+  2. `resolution`定义轨道的分辨率，假设`resolution=480,tempo=60`，则`480tick=1/4note=1s`
+  3. `timeSig`, `tempo`定义拍号和曲速(每分钟播放的四分音符数量)：
+  	- 由于MIDI规范中的时间是离散的，所以这两个元素可以多个存在. 
+  	- `timeSig`中，`posMes`代表拍号所在位置，以小节为单位，`nume`和`denomi`代表每拍时值，其中`nume`为分子，`denomi`为分母. 
+  	- `tempo`中，`posTick`定义了速度的位置并以tick为单位；`bpm`为每分钟播放的四分音符数量，取值范围2000～30000(Int)，在软件上表示为20.00～300.00. 
+  4. `preMeasure`指定前导小节长度. 
+
+###vsTrack
+`vsTrack`者，“虚拟歌手音轨”. 一个`vsTrack`定义一个虚拟歌手音轨，从`<xsd:element ref="vsTrack" maxOccurs="16" />`中定义的数量限制(16个)可得知Vocaloid 3 Editor最多能读取16个`vsTrack`. 
+
+子节点`vsTrackNo`对应后文提到的`vsUnit`控制器的`vsTrackNo`，`trackName`和`comment`定义轨道名称和注释，不必过多解释. 下文是两个重要的子节点`musicalPart`和`prosodyPart`，为了兼容MIDI标准，这两个节点可以多个存在，并在Editor中以升序排列. 
+####musicalPart
+`musicalPart`中定义音符、音色更变事件和演唱风格改变(演唱风格调教)事件. 
+
+1. `posTick`定义了`musicalPart`的起始音位. 
+
+2. `playTime`定义了最长播放时间，注意这里的单位是tick. 
+
+3. `partName`和`comment`为名称和注释.
+
+4. `stylePlugin`定义有关该音轨演唱风格更变的插件信息，其存在是为了兼容Vocaloid 2, Vocaloid 2将音轨演唱风格更变与VST插件挂钩以兼容MIDI, 而vsq2同时也是SMF的扩展.
+	- `stylePluginID`为VST GUID, 默认值为`<![CDATA[ACA9C502-A04B-42b5-B2EB-5CEA36D16FCE]]>`.
+	－　`stylePluginName`为VST插件名, 默认值为`<![CDATA[VOCALOID2 Compatible Style]]>`.
+	- `version`为Vocaloid Editor的版本, 默认值为`<![CDATA[3.0.0.1]]>`
+
+5. `partStyle`定义全局歌唱风格插件, 其中有多个`attr`子节点并与"VOCALOID2 Compatible Style"兼容. `accent`和`decay`是重音和衰减的百分比, `bendDep`和`bendLen`是高音曲折幅度和高音曲折时长; `fallPort`和`risePort`则是布尔值，决定是否有下降滑音和上升滑音。对于opening，应该是默认的口的开合程度，但似乎不能直接设置。[5]
+
+		<attr id="accent">50</attr>
+        <attr id="bendDep">8</attr>
+        <attr id="bendLen">0</attr>
+        <attr id="decay">50</attr>
+        <attr id="risePort">0</attr>
+        <attr id="fallPort">0</attr>
+        <attr id="opening">127</attr>
+
+6. `phraseStyle`是事件化并时间离散化的`partStyle`, 与`partStyle`的区别是多了一个用于定位的`posTick`子节点. 
+7. `singer`定义该`musicalPart`的虚拟歌手变化事件. 子节点`posTick`, `vPC`, `vBS`的作用见上文, 值得一提的是, 这里的`vPC`和`vBS`需要与`vVoiceTable`内定义的歌手元信息对应. 
+8. `mCtrl`定义参数编辑器中的曲线[2]. `posTick`用于定位, `attr`的`id`参数指定曲线有, 可能值`PBS`, `GEN`, `PIT`, `DYN`, `PBS`等. e.g.
+
+	    <mCtrl>
+			<posTick>108438</posTick>
+			<attr id="PBS">11</attr>
+	    </mCtrl>
+	    <mCtrl>
+			<posTick>108524</posTick>
+			<attr id="DYN">10</attr>
+    	</mCtrl>
+	    <mCtrl>
+			<posTick>108734</posTick>
+			<attr id="BRI">82</attr>
+	    </mCtrl>
+
+9. `sCtrl`定义参数编辑器中的曲线. `posTick`用于定位, `attr`的`id`参数指定曲线, 可能值`POR`等. 用法同上.
+10. `note`定义音符.
+	- `posTick`定义音符起始音符. 单位Tick.
+	- `durTick`定义音符持续时间. 单位Tick.
+	- `velocity`定义音符速率, 对应`VEL`曲线.
+	- `noteNum`定义音符编号. 取值范围0-127(Int).
+	- `lyric`定义音符歌词, 最多32二位.
+	- `phnms`定义音符对应音素的X-SAMPA.
+	- `noteStyle`定义音符的演唱风格参数, 可多个存在. 子节点有`attr`和`seqAttr`.
+	
+11. `noteStyle`的子节点`attr`定义音符歌唱风格参数.
+12. `noteStyle`的子节点`attr`的子节点`seqAttr`定义序列中音符的歌唱参数. 子节点有`id`和多个`elem`. `id=vibDep/id=vibRate`.[2] `elem`中, `posNrm`定义"ノートの先頭を0,末尾を1と正規化した相対位置. 32ビット固定小数点数の整数表現形式で保存する."[1](以音符的32位定点数的整数形式保存, 并以0起头, 1结束), 默认值为'22391'. `elv`为值.
+
+        <!-- `attr`的例子-->
+        <attr id="accent">50</attr>  <!-- 重音 -->
+        <attr id="bendDep">8</attr>  <!-- 高音曲折幅度[5] -->
+        <attr id="bendLen">0</attr>  <!-- 高音曲折时长[5] -->
+        <attr id="decay">50</attr>  <!-- 衰减 -->
+        <attr id="fallPort">0</attr>  <!-- 下降滑音 -->
+        <attr id="opening">127</attr>  <!-- 开口度 -->
+        <attr id="risePort">0</attr>  <!-- 上升滑音 -->
+        <attr id="vibLen">66</attr>  <!-- 颤音长度 -->
+        <attr id="vibType">1</attr>  <!-- 颤音类型 -->
+
+
+
+####prosodyPart
+此节点在实际使用中几乎没有出现, `prosodyPart`中没有音符, 直接定义发音音标, 不支持`mCtrl`和`sCtrl`, 此处不再过多讨论.
+
+###seTrack
+`seTrack`对应编辑器界面上的`Track(Mono)`，下设多个`wavPart`节点. `wavPart`的子节点如下：
+
+ - `posTick`定义了波形文件的起始位置，以tick为单位. 
+ - `playTime`定义了波形文件的最长播放时间. 
+ - `partName`为波形的名字，`comment`为注释. 
+ - `filePath`为波形相对于当前vsq3文件的路径. 
+ - `sampleRate`为采样率，`sampleReso`为位深度. 
+ 
+###karaokeTrack
+`karaokeTrack`对应编辑器界面上的`Track(Stereo)`，也就是外挂伴奏音轨，下设多个`wavPart`节点，`wavPart`节点定义见上文. 
+
+##输出混音相关`mixer`和`aux`
+###mixer
+顾名思义，此节点定义了Vocaloid输出时的混音参数，子节点有`masterUnit`, 若干个`vsUnit`(s), `seUnit`, `karaokeUnit`等. 
+
+ 1. `masterUnit`控制`masterTrack`. 
+    - `outDev`指输出设备，取`-1`时通过ReWire输出(内部特供VOCALOID3 Pro可用)，取`0`以上指音频设备的设备ID. 
+    - `vstPlugin`指定了音轨所使用的VST插件，最多两个. 子节点定义见下文“VST相关元素”. 
+    - `vstPluginSR`指定了音轨所使用的用于Send/Return的VST插件，最多一个. 子节点定义见下文“VST相关元素”. 
+	- `retLevel`为用于Send/Return的VST插件的返回电平. 取值范围-898～60(Int). 
+	- `vol`指音量. 取值范围-898～60(Int). 
+	
+ 2. `vsUnit`控制`vsTrack`
+ 	- `vsTrackNo`为`vsTrack`中定义的`vsTrackNo`. 
+ 	- `inGain`为输入增益调节，取值范围-20～20(Int). 
+    - `vstPlugin`指定了音轨所使用的VST插件，最多两个. 子节点定义见下文“VST相关元素”. 
+	- `sendLevel`为用于Send/Return的VST插件的发送电平. 取值范围-898～60(Int). 
+	- `sendEnable`为控制用于Send/Return的VST插件的发送的开关，取值`1`为开，`0`为关. 
+	- `mute`和`solo`分别为控制控制静音和独奏的开关，取值`1`为开，`0`为关. 
+	- `pan`指声像，取值范围0~128(Int). 
+ 	- `vol`指音量. 取值范围-898～60(Int). 
+    
+  3. `seUnit`控制`seTrack`，子节点同`vsUnit`；`karaokeUnit`控制`karaokeTrack`，子节点除没有`pan`, `sendEnable`, `sendLevel`外同`vsUnit`. 
+ 	
+###aux
+此节点无数量限制，官方定义为“予備的汎用情報”，即“预先定义的通用信息”. 
+- `auxID`为256位的字符串. 
+- `content`是长度无限的字符串. 
+
+
+##参考资料和感谢
+
+ 1. `vsq3.xsd`，在Vocaloid Editor安装目录
+ - http://kimi.secret.jp/wiki/index.php?vsqx
+ -  http://tieba.baidu.com/p/1762105186
+ - Rocaloid团队的同事们: 万致远, Star Brilliant
+ - https://biergaizi.info/files/ACG/vocaloid_xml.pdf
