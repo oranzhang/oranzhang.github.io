@@ -4,7 +4,7 @@ if(location.search.substr(1,19)=='_escaped_fragment_='){
 	path = decodeURIComponent(location.search.substr(20).split('&')[0]);
 }
 if(path == '/'){path = ''; window.history.replacetate(null, '', '/');page=1;}
-else if(path && !location.search){window.history.replaceState(null, '', '/#!'+path);}
+else if(path && !location.search){window.history.replaceState(null, '', (isroot?'':('/'+repos))+'/#!'+path);}
 var converter = new Showdown.converter();
 var content = document.getElementById('content');
 var dis = document.getElementById('disqus_thread');
@@ -16,6 +16,7 @@ var kw;
 var postList;
 var pending;
 var commentscount = new Array();
+var isroot=((repos.indexOf('github.com')==-1 && repos.indexOf('github.io')==-1)?false:true);
 
 main();
 
@@ -50,7 +51,7 @@ function main(){
 			document.getElementById('takinglonger').style.display = 'none';
 			chktakinglonger();
 			var el = document.createElement('script');
-			el.src = 'https://api.github.com/repos/' + githubname + '/' + repos + '/contents/md?callback=showlist';
+			el.src = 'https://api.github.com/repos/' + githubname + '/' + repos + '/contents/md?callback=showlist'+(branch?('&ref='+branch):'');
 			document.getElementsByTagName('head')[0].appendChild(el);
 		}
 	}
@@ -61,11 +62,11 @@ function home(){
 	dis.style.display = 'none';
 	dis.innerHTML = '';
 	if(page==1){
-		window.history.pushState(null, '', '/');
+		window.history.pushState(null, '', (isroot?'':('/'+repos))+'/');
 	}
 	else{
 		path = '/page/'+page;
-		window.history.pushState(null, '', '/#!/page/'+page);
+		window.history.pushState(null, '', (isroot?'':('/'+repos))+'/#!/page/'+page);
 	}
 	main();
 }
@@ -104,8 +105,9 @@ function loadXMLDoc(url){
 						blog_text = Base64.decode(blog_text.substr(2));
 						encoded = true;
 					};
+					blog_text = filterJekyllHeader(blog_text);
 					var converter = new Showdown.converter();
-					content.innerHTML = '<div class="o-page-title"><p>'+ decodeUtf8(path.substr(1).split('/')[path.substr(1).split('/').length-1].replace(/_/g, ' ')) + (encoded?Base64.decode('PHN1cCBzdHlsZT0iZm9udC1zaXplOjAuNWVtO3ZlcnRpY2FsLWFsaWduOiBzdXBlcjsiIHRpdGxlPSLmraTmlofnq6Dlt7Looqvph43mlrDnvJbnoIHku6XourLpgb/lrqHmn6UiPuKYmuiiq+e8lueggeeahOWGheWuuTwvc3VwPg=='):'') + '</p></div><div class="o-page-view">' +  converter.makeHtml(blog_text) + '<div class="date">Posted at ' + pdate + '</div>';
+					content.innerHTML = '<div id="content_inner"><div id="back_home"><a href="/" onclick="home();return false;">'+sitetitle+'</a><span>&nbsp;›&nbsp;</span></div><div id="post_title">' + decodeUtf8(getPostName(path)) + (encoded?Base64.decode('PHN1cCBzdHlsZT0iZm9udC1zaXplOjAuNWVtO3ZlcnRpY2FsLWFsaWduOiBzdXBlcjsiIHRpdGxlPSLmraTmlofnq6Dlt7Looqvph43mlrDnvJbnoIHku6XourLpgb/lrqHmn6UiPuKYmuiiq+e8lueggeeahOWGheWuuTwvc3VwPg=='):'') + '</div>' + converter.makeHtml(blog_text) + '<div class="date">Posted at ' + pdate + '</div></div>';
 					if(dis){
 						dis.style.display = 'block';
 					}
@@ -134,8 +136,8 @@ function chktakinglonger(){
 }
 
 function showpost(path){
-	var url = location.protocol + '//' + location.hostname + '/md/' + path.substr(1).replace(/\//g, '-');
-	document.title = decodeUtf8(path.substr(1).split('/')[path.substr(1).split('/').length-1].replace(/_/g, ' ')) + ' - '+sitetitle;
+	var url = location.protocol + '//' + location.hostname + (isroot?'':('/'+repos))+'/md/' + path.substr(1).replace(/\//g, '-')+(suffix?suffix:'');
+	document.title = decodeUtf8(getPostName(path)) + ' - '+sitetitle;
 	pdate = path.substr(1).split('/')[0]+'-'+path.substr(1).split('/')[1]+'-'+path.substr(1).split('/')[2];
 	loadXMLDoc(url);
 }
@@ -147,30 +149,31 @@ function showlist(list){
 			page = 1;
 		}
 		if(page == 1){
-			window.history.replaceState(null, '', '/');
+			window.history.replaceState(null, '', (isroot?'':('/'+repos))+'/');
 		}
 	}
 	pending = false;
 	document.getElementById('takinglonger').style.display = 'none';
 	postList = list;
 	var txt = '';
-	txt += '<div class="o-page-title"><p>Articles</p></div><div class="o-page-list"><ul>'
 	if(page*20-20>=list.data.length && page!=1){
 		page = Math.ceil(list.data.length/20);
-		window.history.replaceState(null, '', '/#!/page/'+page);
+		window.history.replaceState(null, '', (isroot?'':('/'+repos))+'/#!/page/'+page);
 	}
 	for(var i = list.data.length-(page-1)*20; i > 0 && i > list.data.length-page*20; i--){
-txt += '<li><h1><a href="/#!/' + list.data[i-1].name.replace(/-/g, '/') + '">'+ list.data[i-1].name.split('-')[list.data[i-1].name.split('-').length-1].replace(/_/g, ' ') + '</a></h1><div class="post_info"><p>Posted at '+list.data[i-1].name.split('-')[0]+'-'+list.data[i-1].name.split('-')[1]+'-'+list.data[i-1].name.split('-')[2]+' et ' +  '<a style="margin-left: .5rem" href="' + hostbase + '/' + encodePath(list.data[i-1].name) + (commentscount[i]?'':'#disqus_thread') + '" name="commentscount" id="post-'+i+'">'+(commentscount[i]?commentscount[i]:'')+'</a>' + '</p></li>';
-
+		if(suffix && list.data[i-1].name.substr(-suffix.length)==suffix){
+			list.data[i-1].name = list.data[i-1].name.substr(0, list.data[i-1].name.length-suffix.length);
+		}
+		txt += '<postlist><a href="'+(isroot?'':('/'+repos))+'/#!/' + encodePath(list.data[i-1].name, true) + '">' + getPostName(list.data[i-1].name) + '</a><div class="post_info"><span class="post_date">Posted at '+list.data[i-1].name.split('-')[0]+'-'+list.data[i-1].name.split('-')[1]+'-'+list.data[i-1].name.split('-')[2]+'</span><span class="disqus_count"><a href="' + hostbase + '/' + encodePath(list.data[i-1].name, false) + (commentscount[i]?'':'#disqus_thread') + '" name="commentscount" id="post-'+i+'">'+(commentscount[i]?commentscount[i]:'')+'</a></span></div></postlist>';
 	}
 	if(page==1 && page*20<list.data.length){
-		txt += '<div class="am-cf"><a class="am-btn am-btn-warning am-fl prev_page" href="/#!/page/'+(page+1)+'"">←Older Posts</a><a class="am-btn am-btn-warning am-fr am-disabled">Newer Posts→</a></div>';
+		txt += '<postlist><a class="prev_page" href="'+(isroot?'':('/'+repos))+'/#!/page/'+(page+1)+'">←较早的文章</a><div style="clear:both"></div></postlist>';
 	}
 	else if(page>1 && page*20>=list.data.length){
-    txt += '<div class="am-cf"><a class="am-btn am-btn-warning am-fl am-disabled prev_page" href="/#!/page/'+(page+1)+'"">←Older Posts</a><a href="/#!/page/'+(page-1)+'" class="am-btn am-btn-warning am-fr next_page">Newer Posts→</a></div>';
+		txt += '<postlist><a class="next_page" href="'+(isroot?'':('/'+repos))+'/#!/page/'+(page-1)+'">较新的文章→</a><div style="clear:both"></div></postlist>';
 	}
 	else if(page>1 && page*20<list.data.length){
-    txt += '<div class="am-cf"><a class="am-btn am-btn-warning am-fl prev_page" href="/#!/page/'+(page+1)+'"">←Older Posts</a><a href="/#!/page/'+(page-1)+'" class="am-btn am-btn-warning am-fr next_page">Newer Posts→</a></div>';
+		txt += '<postlist><a class="prev_page" href="'+(isroot?'':('/'+repos))+'/#!/page/'+(page+1)+'">←较早的文章</a><a class="next_page" href="'+(isroot?'':('/'+repos))+'/#!/page/'+(page-1)+'">较新的文章→</a><div style="clear:both"></div></postlist>';
 	}
 	loading.style.display = 'none';
 	content.innerHTML = txt;
@@ -182,15 +185,21 @@ txt += '<li><h1><a href="/#!/' + list.data[i-1].name.replace(/-/g, '/') + '">'+ 
     }());
 }
 
-function encodePath(path){
-  path = encodeURIComponent(path).replace(/-/g, '/');
-  for(var i=0; i<path.length; i++){
-    if(path.substr(i,1) == '%'){
-      path = path.substr(0,i+1)+path.substr(i+1,2).toLowerCase()+path.substr(i+3);
-      i+=2;
-    }
-  }
-  return path;
+function encodePath(path, isdecode){
+	path = encodeURIComponent(path);
+	path = path.split('-');
+	var newPath = path[0]+'/'+path[1]+'/'+path[2]+'/'+path[3];
+	for(var i=4; i<path.length; i++){
+		newPath += '-'+path[i];
+	}
+	path = newPath;
+	for(var i=0; i<path.length; i++){
+		if(path.substr(i,1) == '%'){
+			path = path.substr(0,i+1)+path.substr(i+1,2).toLowerCase()+path.substr(i+3);
+			i+=2;
+		}
+	}
+	return isdecode?decodeUtf8(path):path;
 }
 
 function decodeUtf8(str){
@@ -208,9 +217,26 @@ function decodeUtf8(str){
 	}
 }
 
+function getPostName(name){
+	if(name.substr(0,1)=='/'){
+		name = name.substr(1);
+	}
+	name = name.replace(/\//g, '-');
+	name = name.split('-');
+	var newName = name[3];
+	for(var i=4; i<name.length; i++){
+		newName += '-'+name[i];
+	}
+	return newName.replace(/_/g, ' ');
+}
+
+function filterJekyllHeader(post){
+	return post.replace(/^\-\-\-[\s\S]+\-\-\-[\n\r]+/g, '');
+}
+
 window.onhashchange = function(){
 	if(location.hash && location.hash.substr(1,1) != '!'){
-		window.history.replaceState(null, '', '/#!'+path);
+		window.history.replaceState(null, '', (isroot?'':('/'+repos))+'/#!'+path);
 		return;
 	}
 	//goToTop();
@@ -225,6 +251,6 @@ window.onhashchange = function(){
 	dis.style.display = 'none';
 	dis.innerHTML = '';
 	path = location.hash.substr(2);
-	if(path == '/'){path = ''; window.history.replaceState(null, '', '/');}
+	if(path == (isroot?'':('/'+repos))+'/'){path = ''; window.history.replaceState(null, '', (isroot?'':('/'+repos))+'/');}
 	main();
 }

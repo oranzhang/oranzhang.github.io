@@ -11,7 +11,7 @@ var scount;
 init();
 
 function init(){
-	ctx.fillStyle="#19B684";
+	ctx.fillStyle="#2e7bcf";
 	ctx.fillRect(0,0,cwidth,cheight);
 	for(var y=0; y<cheight/csize; y++){
 		cells[y] = new Array();
@@ -61,10 +61,10 @@ function showCells(){
 	for(var y=0; y<cheight/csize; y++){
 		for(var x=0; x<cwidth/csize; x++){
 			if(cells[y][x]){
-				ctx.fillStyle="#444";
+				ctx.fillStyle="#FFD3C0";
 			}
 			else{
-				ctx.fillStyle="#fff";
+				ctx.fillStyle="#fafafa";
 			}
 			ctx.fillRect(x*csize,y*csize,csize,csize);
 		}

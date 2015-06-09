@@ -2,23 +2,6 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-@font-face {
-    font-family: "LCD";
-    src: url('../images/LCD_Solid.ttf') format("truetype");
-}
-@font-face{
-    font-family: "pixel-g";
-    src:url('../images/Pixel_Gosub.otf') format("truetype");
-}
-@font-face{
-    font-family: "3D";
-    src:url('../images/3D.ttf');
-}
-@font-face{
-    font-family: "miao";
-    src:url('../images/miao.ttf');
-}
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -32,49 +15,47 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-  display: block;
+	display: block;
 }
 body {
-  line-height: 1;
+	line-height: 1;
 }
 ol, ul {
-  list-style: none;
+	list-style: none;
 }
 blockquote, q {
-  quotes: none;
+	quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-  content: '';
-  content: none;
+	content: '';
+	content: none;
 }
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 /* LAYOUT STYLES */
 body {
   font-size: 15px;
   line-height: 1.5; 
-  background: white;
-  font-family:  "LCD", Arial,"miao", serif !important;
+  background: #eee;
+  font-family: Arial, serif;
   font-weight: 400;
   color: #666;
 }
-em {
-  color: rgb(2, 105, 129);
-}
+
 a {
   color: #2879d0;
 }
@@ -85,9 +66,9 @@ a:hover {
 header {
   padding-top: 40px;
   padding-bottom: 40px;
-  font-family: "3D","miao",Arial, serif; 
-  background: #FFF;
-  border-bottom: solid 0 black;
+  font-family: Arial, serif; 
+  border-bottom: 0.5rem solid #ffb405;
+  background: #fafafa;
   position: relative;
   overflow: hidden;
 }
@@ -95,11 +76,11 @@ header {
 header h1 {
   letter-spacing: -1px;
   font-size: 72px;
-  color: black;
+  color: #000;
   line-height: 1;
   margin-bottom: 0.2em;
   width: 540px;
-  background: #FFF;
+  text-align: center;
 }
 
 header h2 {
@@ -114,9 +95,9 @@ header h2 {
 postlist {
   font-size: 20px;
   display: block;
-  font-family: "LCD" ,"miao",Arial, sans-serif;
+  font-family: Arial, sans-serif;
   padding: 10px;
-  padding-left: 20px;
+  background: url(../images/bg_item.png) bottom;
   border-bottom: 1px #e2e2e2 solid;
 }
 
@@ -151,32 +132,30 @@ postlist a:hover {
   margin: 0 auto;
 }
 
+#content_inner {
+  padding: 20px 20px 20px 40px;
+}
+
 #content-wrapper {
   border-top: solid 1px #fff;
   padding-top: 30px;
 }
 
 #disqus_thread {
-  font-family: "LCD", "miao",sans-serif !important;
   padding: 20px;
 }
-script+#layout {
-    font-family: "LCD","miao", sans-serif !important;
 
-}
 #main-content {
+  width: 690px;
   min-height: 50px;
+  float: left;
   position: relative;
-  /* -webkit-border-radius: 3px; */
-  /* -moz-border-radius: 3px; */
-  /* border-radius: 3px; */
-  /* -webkit-box-shadow: 1px 2px 3px #ddd; */
-  /* box-shadow: 1px 2px 3px #ddd; */
-  box-shadow: 2px 3px 0 black;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
   background: white;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  border: 2px solid black;
 }
 
 #main-content img {
@@ -206,7 +185,9 @@ script+#layout {
 }
 
 aside#sidebar {
+  width: 200px;
   padding: 20px;
+  float: right;
   position: relative;
   background: white;
   font-size: 12px;
@@ -225,7 +206,6 @@ aside#sidebar p.repo-owner a {
 
 aside#sidebar img {
   margin-bottom: 20px;
-  float: right;
 }
 
 #downloads {
@@ -264,26 +244,15 @@ header span.searchbar {
 }
 
 #searchbar {
-  height: 30px;
+  height: 20px;
   line-height: 20px;
   width: 240px;
   font-size: 16px;
-  padding: 0 4px 0 25px;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
+  padding: 0 4px 0 20px;
   background: url(../images/search-icon.png) no-repeat left center white;
-  border: 2px solid black;
-  font-family: "pixel-g","miao";
+  border: #FFCE74 2px solid;
 }
-#searchbar:active {
-  border: 5px solid black;
-  outline:none;
-}
-#searchbar:focus{
-  border: 5px solid black;
-  outline:none;
-}
+
 .cse .gsc-control-cse, .gsc-control-cse {
   border: none!important;
   padding: 0!important;
@@ -306,7 +275,7 @@ aside a.button {
 }
 
 code, pre {
-  /*font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;*/
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   color: #222;
   margin-bottom: 30px;
   font-size: 13px;
@@ -532,6 +501,7 @@ form {
 /* GENERAL ELEMENT TYPE STYLES */
 
 #main-content h1 {
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
   font-size: 2.8em;
   letter-spacing: -1px;
   color: #474747;
@@ -539,12 +509,13 @@ form {
 
 #main-content h1:before {
   content: "/";
-  color: #aaa;
+  color: #9ddcff;
   padding-right: 0.3em;
   margin-left: -0.9em;
 }
 
 #main-content h2 {
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 8px;
@@ -552,12 +523,13 @@ form {
 } 
 #main-content h2:before {
   content: "//";
-  color: #aaa;
+  color: #9ddcff;
   padding-right: 0.3em;
   margin-left: -1.5em;
 }
 
 #main-content h3 {
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
   font-size: 18px;
   font-weight: bold;
   margin-top: 24px;
@@ -567,12 +539,13 @@ form {
  
 #main-content h3:before {
   content: "///";
-  color: #aaa;
+  color: #9ddcff;
   padding-right: 0.3em;
   margin-left: -2em;
 }
 
 #main-content h4 {
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
   font-size: 15px;
   font-weight: bold;
   color: #474747;
@@ -580,12 +553,13 @@ form {
 
 h4:before {
   content: "////";
-  color: #aaa;
+  color: #9ddcff;
   padding-right: 0.3em;
   margin-left: -2.8em;
 }
 
 #main-content h5 {
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
   font-size: 14px;
   color: #474747;
 } 
@@ -597,12 +571,13 @@ h5:before {
 }
 
 #main-content h6 {
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
   font-size: .8em;
   color: #474747;
 } 
 h6:before {
   content: "//////";
-  color: #aaa;
+  color: #9ddcff;
   padding-right: 0.3em;
   margin-left: -3.7em;
 }
@@ -612,11 +587,7 @@ p {
 }
  
 a {
-  color: #4A4E51;
   text-decoration: none;
-}
-a:hover {
-  color: #798897;
 }
 
 p a {
@@ -649,7 +620,7 @@ dl dd {
 }
 
 footer {
-  border-top: 2px black solid;
+  border-top: 1px #e2e2e2 solid;
   margin: 40px 10px 0 10px;
   padding-top: 20px;
   padding-bottom: 30px;
@@ -688,19 +659,18 @@ footer a:hover {
 
 .disqus_count a {
   display: block;
-  font-family: "pixel-g","miao";
-  /* -webkit-border-radius: 8px; */
-  /* -moz-border-radius: 8px; */
-  /* border-radius: 8px; */
-  height: 18px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  height: 16px;
   line-height: 16px;
   font-size: 12px;
   min-width: 10px;
   padding: 0 5px;
   text-align: center;
-  color: rgb(3, 3, 3);
-  /* background: rgb(255, 255, 255); */
-  border: 2px solid black;
+  color: white;
+  background: gray;
+  border: none;
 }
 
 .disqus_count a:hover {
@@ -841,6 +811,9 @@ footer a:hover {
     content: none;
     padding-right: 0;
     margin-left: 0;
+  }
+  #content_inner {
+    padding: 20px;
   }
 }
 

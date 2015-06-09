@@ -1,3 +1,0 @@
-    txt += '<div class="am-cf"><a class="am-btn am-btn-warning am-fl am-disabled prev_page" href="/#!/page/'+(page+1)+'"">←Older Posts</a><a href="/#!/page/'+(page-1)+'" class="am-btn am-btn-warning am-fr next_page">Newer Posts→</a></div>';
-
-    txt += '<postlist><a class="next_page" href="/#!/page/'+(page-1)+'">Newer Posts→</a><div style="clear:both"></div></postlist>';

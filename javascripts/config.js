@@ -1,6 +1,18 @@
-var disqus_shortname = 'oranzhang';
-var hostbase = 'http://oran.pw';
-var githubname = 'oranzhang';
-var repos = 'oranzhang.github.io';
-var sitetitle = 'Oran Zhang';
-var rss = '';
+var disqus_shortname = 'oranzhang';			//Short Name of disqus, this parameter is for disqus comment box.
+var hostbase = 'http://nnya.nl';		//The absolute root address of your blog without '/' in the end.
+var githubname = 'oranzhang';						//Your username of GitHub.
+var repos = 'oranzhang.github.io';					//Name of repository that contains your blog.
+var sitetitle = 'Awc Zhang';						//Name of your blog.
+var rss = '';									//Rss address of your blog.
+var suffix = '';								//Suffix of post files, '.' should be included.
+var branch = '';								//Branch of your blog repository. 'master' is default if you left it blank.
+
+//Sample Config:
+//var disqus_shortname = 'sneezry';
+//var hostbase = 'http://sneezry.com/blog';
+//var githubname = 'sneezry';
+//var repos = 'blog';	
+//var sitetitle = 'Sneezry';
+//var rss = '';
+//var suffix = '.md';
+//var branch = 'gh-pages';
