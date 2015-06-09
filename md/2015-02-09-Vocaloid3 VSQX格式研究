@@ -65,7 +65,7 @@
 
 4. `stylePlugin`定义有关该音轨演唱风格更变的插件信息，其存在是为了兼容Vocaloid 2, Vocaloid 2将音轨演唱风格更变与VST插件挂钩以兼容MIDI, 而vsq2同时也是SMF的扩展.
 	- `stylePluginID`为VST GUID, 默认值为`<![CDATA[ACA9C502-A04B-42b5-B2EB-5CEA36D16FCE]]>`.
-	－　`stylePluginName`为VST插件名, 默认值为`<![CDATA[VOCALOID2 Compatible Style]]>`.
+    - `stylePluginName`为VST插件名, 默认值为`<![CDATA[VOCALOID2 Compatible Style]]>`.
 	- `version`为Vocaloid Editor的版本, 默认值为`<![CDATA[3.0.0.1]]>`
 
 5. `partStyle`定义全局歌唱风格插件, 其中有多个`attr`子节点并与"VOCALOID2 Compatible Style"兼容. `accent`和`decay`是重音和衰减的百分比, `bendDep`和`bendLen`是高音曲折幅度和高音曲折时长; `fallPort`和`risePort`则是布尔值，决定是否有下降滑音和上升滑音。对于opening，应该是默认的口的开合程度，但似乎不能直接设置。[5]
