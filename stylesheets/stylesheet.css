@@ -50,17 +50,17 @@ table {
 body {
   font-size: 15px;
   line-height: 1.5; 
-  background: #eee;
+  background: #fff;
   font-family: Arial, serif;
   font-weight: 400;
   color: #666;
 }
 
 a {
-  color: #2879d0;
+  color: #000;
 }
 a:hover {
-  color: #2268b2;
+  color: #FF8800;
 }
 
 header {
@@ -97,8 +97,6 @@ postlist {
   display: block;
   font-family: Arial, sans-serif;
   padding: 10px;
-  background: url(../images/bg_item.png) bottom;
-  border-bottom: 1px #e2e2e2 solid;
 }
 
 postlist:last-child {
@@ -110,7 +108,7 @@ postlist a {
 }
 
 postlist a:hover {
-  border-bottom: 1px #2879d0 dashed;
+  border-bottom: 1px #FF8800 dashed;
 }
 
 .prev_page, .next_page {
@@ -137,7 +135,6 @@ postlist a:hover {
 }
 
 #content-wrapper {
-  border-top: solid 1px #fff;
   padding-top: 30px;
 }
 
@@ -150,11 +147,6 @@ postlist a:hover {
   min-height: 50px;
   float: left;
   position: relative;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: 1px 2px 3px #ddd;
-  box-shadow: 1px 2px 3px #ddd;
   background: white;
 }
 
@@ -659,9 +651,6 @@ footer a:hover {
 
 .disqus_count a {
   display: block;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
   height: 16px;
   line-height: 16px;
   font-size: 12px;
