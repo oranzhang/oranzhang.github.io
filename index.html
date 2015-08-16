@@ -1,80 +1,69 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta content="I write code." name="description">
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/loading.css" />
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>fullPage.js - Pure Javascript version</title>
+	<meta name="author" content="Awc Zhang" />
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="style.css"></head>
+	<link rel="stylesheet" type="text/css" href="javascript.fullPage.css" />
 
-    <script src="javascripts/config.js"></script>
-    <script src="javascripts/base64.js"></script>
-    <script src="javascripts/showdown.js"></script>
-    <!-- Change this to your site title -->
-    <title>Awc Zhang</title>
-  </head>
+	<style>
 
-  <body>
-    <header>
-      <canvas id="gameoflife"></canvas>
-      <div class="inner">
-        <!-- Change this to your site title -->
-        <a href="/" onclick = "return false"><h1 onclick="home()">Awc Zhang</h1></a>
-        <span class="searchbar">
-        <input type="text" id="searchbar" onclick="cache()" onkeyup="if(this.value){doSearch(this.value)}else{home()}">
-        </span>
-      </div>
-    </header>
+	</style>
+</head>
+<body>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <div class="gotop" onclick="goToTop()">
-            <div class="gotopinner">
-              <div class="topleft"></div>
-              <div class="topright"></div>
-              <div class="topbody"></div>
-            </div>
-          </div>
-          <div id="loading">
-            <div class="loading" index="0"></div>
-            <div class="loading" index="1"></div>
-            <div class="loading" index="2"></div>
-            <div class="loading" index="3"></div>
-            <div class="loading" index="4"></div>
-          </div>
-          <a href="/" onclick="return false">
-            <div id="backhome" onclick="home()">
-              <div class="backhome">
-                <div class="backhomeinner">
-                  <div class="backleft"></div>
-                  <div class="backright"></div>
-                  <div class="backbody"></div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <div id="content">
-          </div>
-          <div id="takinglonger"><blockquote>This is taking longer than normal, and there may be some problems in your network.</blockquote></div>
-          <div id="disqus_thread" style="display:none"></div>
-        </section>
 
-      </div>
-      <footer>ニコニコニノマホウヲハジメマシタ</footer>
-    </div>
-  <script src="javascripts/search.js"></script>
-  <script src="javascripts/getmd.js"></script>
-  <!--
-  <script src="/javascripts/main.js"></script>
-  -->
-  <script src="javascripts/gameoflife.js"></script>
-  </body>
+<div id="fullpage">
+	<div class="section " id="section0">
+		<div class="content">
+			<h1><span class="icon-oku"></span></h1>
+			<h2>Awc Zhang</h2>
+			<h5>往下拽orz……</h5>
+		</div>
+	</div>
+	<div class="section" id="section1">
+		<div class="slide" id="slide1">
+			<div class="content">
+				<h1>No need for jQuery</h1>
+				<p>
+					5 Kb gzipped!!
+				</p>
+				<p>
+		      		Improve the loading time of your site!
+				</p>
+			</div>
+		</div>
+		<div class="slide" id="slide2">
+			<div class="content">
+				<h1>Slides too!</h1>
+			</div>
+		</div>
+		<div class="slide" id="slide2">
+			<div class="content">
+				<h1>More slides!</h1>
+			</div>
+		</div>
+	</div>
+	<div class="section" id="section2">
+		<div class="content">
+			<h1>Compatible</h1>
+			<p>IE 8+ support.</p>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="javascript.fullPage.js"></script>
+<script type="text/javascript">
+	fullpage.initialize('#fullpage', {
+		anchors: ['firstPage', 'secondPage', '3rdPage', '4thpage', 'lastPage'],
+		menu: '#menu',
+		css3:true
+	});
+
+</script>
+
+</body>
 </html>
