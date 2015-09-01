@@ -1,5 +1,5 @@
 var disqus_shortname = 'oranzhang';			//Short Name of disqus, this parameter is for disqus comment box.
-var hostbase = 'http://nnya.nl';		//The absolute root address of your blog without '/' in the end.
+var hostbase = 'http://nnya.nl/blog.html';		//The absolute root address of your blog without '/' in the end.
 var githubname = 'oranzhang';						//Your username of GitHub.
 var repos = 'oranzhang.github.io';					//Name of repository that contains your blog.
 var sitetitle = 'Awc Zhang';						//Name of your blog.
