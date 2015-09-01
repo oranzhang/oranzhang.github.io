@@ -89,6 +89,11 @@
 		#section0{
 			background-color: #FFF;
 		}
+		#section0 p {
+			color: #e2e2e2;
+			font-size: .8rem;
+			margin-top: .5rem;
+		}
 		#section0 h1{
 			color: #444;
 			position: relative;
@@ -105,7 +110,7 @@
 
 		}
 	
-		#section0 h2{
+		#section0 h2 {
 			color: #333;
 			opacity: 0.8;
 
@@ -121,6 +126,17 @@
 		#section1 h1{
 			color: #f2f2f2;
 		}
+		#section1 h2 a{
+			color: #f2f2f2;
+	    font-size: 1.5rem;
+	    margin-top: 1.5rem;
+		}
+		#section1 h2 a:hover{
+			color: #f2f2f2;
+	    text-shadow: 0 0 10px #3E3E3E;
+	    
+		}
+		
 		#section1 p{
 			color: #f2f2f2;
 		}
