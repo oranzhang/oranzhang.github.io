@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>参与详情</title>
+    <meta name="keywords" content="依云,易送,工匠精神,依云易送,依乐云,优惠,折扣,福利,打折,团购，最大折扣，最省优惠" />
+    <meta name="description" content="我们团队是一支带有工匠精神,最求完美极致的团队,打造一个颠覆传统，线上体验线下消费最大折扣优惠，改变人们生活习惯的平台" />
+    <meta name="description" content="广州北婚博会入场券,婚博会电子入场券（电子券签到兑换红包）" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <script type="text/javascript">
+    (function(f, j) {
+        var i = document,
+            d = window;
+        var b = i.documentElement;
+        var c;
+        var h = i.querySelector('meta[name="viewport"]');
+        var e = "width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no";
+        if (h) {
+            h.setAttribute("content", e)
+        } else {
+            h = i.createElement("meta");
+            h.setAttribute("name", "viewport");
+            h.setAttribute("content", e);
+            if (b.firstElementChild) {
+                b.firstElementChild.appendChild(h)
+            } else {
+                var a = i.createElement("div");
+                a.appendChild(h);
+                i.write(a.innerHTML)
+            }
+        }
+
+        function g() {
+            var k = b.getBoundingClientRect().width;
+            if (!j) {
+                j = 540
+            }
+            if (k > j) {
+                k = j
+            }
+            var l = k * 100 / f;
+            b.style.fontSize = l + "px"
+        }
+        g();
+        d.addEventListener("resize", function() {
+            clearTimeout(c);
+            c = setTimeout(g, 300)
+        }, false);
+        d.addEventListener("pageshow", function(k) {
+            if (k.persisted) {
+                clearTimeout(c);
+                c = setTimeout(g, 300)
+            }
+        }, false);
+        if (i.readyState === "complete") {
+            i.body.style.fontSize = "16px"
+        } else {
+            i.addEventListener("DOMContentLoaded", function(k) {
+                i.body.style.fontSize = "16px"
+            }, false)
+        }
+    })(750, 540);
+    </script>
+    <link rel="stylesheet" type="text/css" href="./assets/css/swiper.min.css">
+    <link type="text/css" rel="stylesheet" href="./assets/css/event.css" />
+</head>
+
+<body id="form">
+    <div class="g-doc">
+        <div class="m-info head">
+            <a class="back"></a>
+            <div class="u-tt">
+                <p>
+                    参与详情</p>
+            </div>
+        </div>
+        <div class="m-section m-team">
+            <div class="m-t">队伍信息</div>
+            <div class="m-p">
+                队伍名称
+                <input maxlength="30" v-model="team.name">
+            </div>
+            <div class="m-p">
+                代表人姓名
+                <input maxlength="10" v-model="team.represent">
+            </div>
+            <div class="m-p">
+                联系电话
+                <input maxlength="15" type="tel" v-model="team.phone" v-on:keyup="catchPhone()">
+            </div>
+        </div>
+        <div class="m-section m-team-list">
+            <div class="m-t">队员信息
+                <a class="add" v-on:click="addPerson()"></a>
+            </div>
+            <div class="o-list">
+                <ul v-for="p in person" track-by="$index">
+                    <a class="o-delete" v-on:click="deletePerson($index)"></a>
+                    <li>队员 {{$index+1}}</li>
+                    <li>姓名<input maxlength="10" v-model="p.name"></li>
+                    <li>身份证号码<input maxlength="18" v-model="p.identity" pattern="^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$" title="请输入正确的18位身份证号" v-on:keyup="catchSubmit"></li>
+                </ul>
+            </div>
+        </div>
+    <div id="btnGoods" class="buybtn">
+        <p>{{message}}</p>
+        <a id="drawBtn" href="javascript:" v-on:click="formSubmit">提交</a>
+    </div>
+    </div>
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="./assets/js/vue.js"></script>
+<script type="text/javascript">
+(function() {
+    var vue = new Vue({
+        el: "#form",
+        data: {
+            team: {
+                name: '',
+                represent: '',
+                phone: ''
+            },
+            person: [{
+                name: "",
+                identity: ''
+            }],
+            message: ""
+        },
+        methods: {
+            catchSubmit: function(event) {
+                var v = event.target.validity.valid;
+                if(v == false) {
+                    this.message = "请输入正确的18位身份证号"
+                } else {
+                    this.message = ""
+                }
+            },
+            catchPhone: function(event) {
+                this.team.phone = this.team.phone.replace(/[^0-9]/ig, "")
+            },
+            addPerson: function(event) {
+                if (this.person.length <= 50) {
+                    this.person.push({
+                        name: "",
+                        identity: ""
+                    })
+                }
+            },
+            deletePerson: function(i){
+                this.person.splice(i, 1)
+            },
+            formSubmit: function(){
+                var data = this.$data;
+                console.log(data);
+                //处理数据并提交
+            }
+        }
+    });
+}());
+</script>
+
+</html>
